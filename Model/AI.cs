@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using BlazorConnect4.Model;
 
 namespace BlazorConnect4.AIModels
@@ -28,32 +30,48 @@ namespace BlazorConnect4.AIModels
     }
     public class QLearn : AI
     {
-
-        public List<(int, int)> GetValidMoves(GameBoard board)
+        
+        public List<Tuple<int,int>> GetValidMoves(Cell[,] board)
         {
-            var ValidMoves = new List<(int, int)>();
+
+            var ValidMoves = new List<Tuple<int, int>>();
             for (int i = 0; i < 7; i++)
             {
-                for (int j = 5; j > 0; j--)
+                for (int j = 5; j >= 0; j--)
                 {
-                    if (board.Grid[i, j].Color == CellColor.Blank)
+                    if (board[i, j].Color == CellColor.Blank)
                     {
-                        ValidMoves.Add((i, j));
-                        Console.WriteLine(j);
+                        
+                        ValidMoves.Add(new Tuple<int,int>(i,j));
+                        
                         break;
                     }
                 }
             }
             return ValidMoves;
         }
+
+        Random random;
+        private byte[,] TakeAction(Cell[,] board)
+        {
+
+            var validAction = GetValidMoves(board);
+            int randomIndex = random.Next(0, validAction.Count);
+            Tuple<int,int> move = validAction[randomIndex];
+
+
+
+            return [0, 0];
+        }
         private void RedQLearning()
         {
-            
+            double Discount = 0.5; //0 < x < 1
+
         }
 
-        private void WriteFile()
+        public void WriteFile()
         {
-
+            
         }
 
         public void ReadFile()
