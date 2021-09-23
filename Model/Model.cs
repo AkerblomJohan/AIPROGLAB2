@@ -108,8 +108,6 @@ namespace BlazorConnect4.Model
         }
 
 
-
-
         private bool IsValid(int col)
         {
             return Board.Grid[col, 0].Color == CellColor.Blank;
