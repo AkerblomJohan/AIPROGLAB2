@@ -30,7 +30,14 @@ namespace BlazorConnect4.AIModels
     }
     public class QLearn : AI
     {
+
+        private double learningRate;
+        private double discount;
+        private int[][] qTable;
+        private double Qvalue;
         
+        
+       
         public List<Tuple<int,int>> GetValidMoves(Cell[,] board)
         {
 
@@ -50,22 +57,32 @@ namespace BlazorConnect4.AIModels
             }
             return ValidMoves;
         }
-
-        Random random;
-        private byte[,] TakeAction(Cell[,] board)
+        public int[] GetValidMoveArray(Cell[,] board)
         {
-
-            var validAction = GetValidMoves(board);
-            int randomIndex = random.Next(0, validAction.Count);
-            Tuple<int,int> move = validAction[randomIndex];
-
-
-
-            return [0, 0];
+            List<int> validAction = new List<int>();
+            for (int i = 0; i < 7; i++)
+            {
+                if (board[i, 0].Color == CellColor.Blank)
+                {
+                    validAction.Add(i);
+                }
+            }
+            return validAction.ToArray();
         }
-        private void RedQLearning()
+        private double reward()
         {
-            double Discount = 0.5; //0 < x < 1
+            return 0;
+        }
+
+        
+        
+        private void RedQLearning(Cell[,] boardState)
+        {
+
+            var reward = 0; //reward for taking an action in a state
+            var maxQ = 0; //max expedted future reward
+            Qvalue = Qvalue + learningRate * (reward + discount * maxQ - Qvalue);
+
 
         }
 
