@@ -71,7 +71,7 @@ namespace BlazorConnect4.AIModels
 
         public void WriteFile()
         {
-            
+    
         }
 
         public void ReadFile()

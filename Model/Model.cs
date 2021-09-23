@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BlazorConnect4.AIModels;
 
 namespace BlazorConnect4.Model
@@ -22,7 +23,7 @@ namespace BlazorConnect4.Model
 
     }
 
-    public class GameBoard
+    public class GameBoard : IEquatable<GameBoard>
     {
         public Cell[,] Grid { get; set; }
 
@@ -40,7 +41,21 @@ namespace BlazorConnect4.Model
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as GameBoard);
+        }
 
+        public bool Equals(GameBoard other)
+        {
+            return other != null &&
+                   EqualityComparer<Cell[,]>.Default.Equals(Grid, other.Grid);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Grid);
+        }
     }
 
 
