@@ -25,4 +25,26 @@ namespace BlazorConnect4.AIModels
             return generator.Next(7);
         }
     }
+    public class QLearn : AI
+    {
+        private void RedQLearning()
+        {
+
+        }
+
+        private void WriteFile()
+        {
+
+        }
+
+        private void ReadFile()
+        {
+
+        }
+
+        public override int SelectMove(Cell[,] grid)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
