@@ -35,12 +35,17 @@ namespace BlazorConnect4.AIModels
         private double discount;
         private int[][] qTable;
         private double Qvalue;
-        
-        
+        private double epsilon = 0;
+        double reward = 0;
+        Random randomGen;
+        private QLearn()
+        {
+            randomGen = new Random();
+        }
        
         public List<Tuple<int,int>> GetValidMoves(Cell[,] board)
         {
-
+            
             var ValidMoves = new List<Tuple<int, int>>();
             for (int i = 0; i < 7; i++)
             {
@@ -69,20 +74,27 @@ namespace BlazorConnect4.AIModels
             }
             return validAction.ToArray();
         }
-        private double reward()
+        private double GetReward()
         {
-            return 0;
+            
+            return this.reward;
         }
 
-        
-        
-        private void RedQLearning(Cell[,] boardState)
+        private int[] getAction(int choice)
         {
-
+            if(randomGen.NextDouble() < epsilon)
+            {
+                
+            }
+            return null;
+        }
+        
+        private void RedQLearning(Cell[,] board)
+        {
+            
             var reward = 0; //reward for taking an action in a state
             var maxQ = 0; //max expedted future reward
             Qvalue = Qvalue + learningRate * (reward + discount * maxQ - Qvalue);
-
 
         }
 

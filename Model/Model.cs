@@ -225,13 +225,24 @@ namespace BlazorConnect4.Model
 
                         if (IsWin(col,i))
                         {
+                            if (Board.Grid[col, i].Color == CellColor.Red)
+                            {
+                                //AI +1
+                            }
+                            else
+                                // AI -1
                             message = Player.ToString() + " Wins";
                             active = false;
+                            
                             return true;
                         }
 
                         if (IsDraw())
                         {
+                            if (Board.Grid[col, i].Color == CellColor.Red)
+                            {
+                                //AI -0,5
+                            }
                             message = "Draw";
                             active = false;
                             return true;
@@ -241,7 +252,7 @@ namespace BlazorConnect4.Model
                 }
                 return PlayNext();
             }
-
+            
             return false;
         }
 
