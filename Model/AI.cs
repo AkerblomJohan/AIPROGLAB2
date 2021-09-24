@@ -37,11 +37,9 @@ namespace BlazorConnect4.AIModels
         private double Qvalue;
         private double epsilon = 0;
         double reward = 0;
-        Random randomGen;
-        private QLearn()
-        {
-            randomGen = new Random();
-        }
+        public Random rnd {get ; set;}
+
+
        
         public List<Tuple<int,int>> GetValidMoves(Cell[,] board)
         {
@@ -80,15 +78,67 @@ namespace BlazorConnect4.AIModels
             return this.reward;
         }
 
+        //create Q matrix, all values start at 0
+        static double[][] CreateQMatrix(int size)
+        {
+            double[][] Q = new double[size][];
+            for (int i = 0; i < size; ++i)
+			{
+                Q[i] = new double[size];
+			}
+            return Q;
+        }
+
+        static List<int> GetPossNextState(int s, Cell[,] FT)
+        {
+            List<int> Result = new List<int>();
+            for (int i = 0; i < FT.Length; ++i)
+			{
+                if(FT[s,i].Color == CellColor.Blank) Result.Add(i);
+			}
+            return Result;
+        }
+        static List<int> GetRandSate(int s,Cell[,] FT)
+        {
+             List<int> possNextStates = GetPossNextState(s, FT);
+             int ct = possNextStates.Count;
+             int idx = rnd.Next(0, ct);
+             return possNextStates[idx];
+        }
+
         private int[] getAction(int choice)
         {
-            if(randomGen.NextDouble() < epsilon)
+            if(rnd.NextDouble() < epsilon)
             {
                 
             }
             return null;
         }
-        
+        static void Train(Cell[,] FT, double[][] R, double[][] Q, int goial, double gamma, double learnRate, int MaxEpock)
+        {
+            for (int epoch = 0; epoch < MaxEpock; ++epoch)//går nog gör x antal gånger ba
+			{
+                int currState = rnd.Next(0,R.Length);
+
+                while(true)
+                {
+                    int nextState = GetRandSate(currState,FT);
+                    List<int> possNextuppState = GetPossNextState(nextState,FT);
+                    double maxQ = double.MinValue;
+                    for (int i = 0; i < possNextuppState.Count; i++)
+			        {
+                        int nns = possNextuppState[i];
+                        double q = Q[nextState][nns];
+                        if(q>maxQ)
+                            maxQ = q;
+			        }
+                    Q[currState,nextState] = ((1-learnRate)*Q[currState,nextState])+(learnRate*(R[currState,nextState]+(gamma * maxQ)));
+                    currState = nextState;
+                    if (currState == goial) 
+                        break;
+                }
+			}
+        }
         private void RedQLearning(Cell[,] board)
         {
             

@@ -222,7 +222,7 @@ namespace BlazorConnect4.Model
                     if (Board.Grid[col, i].Color == CellColor.Blank)
                     {
                         Board.Grid[col, i].Color = Player;
-
+                        
                         if (IsWin(col,i))
                         {
                             if (Board.Grid[col, i].Color == CellColor.Red)
