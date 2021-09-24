@@ -28,6 +28,54 @@ namespace BlazorConnect4.AIModels
             return generator.Next(7);
         }
     }
+
+
+
+
+    public class QAgent : AI
+    {
+        public Dictionary<int, int> Qdict;
+        int reward = 0;
+    public double Rewards(int state, int action)
+        {
+            return 0;
+        }
+
+
+        // Return en probability för en given state och action där ju större probability desto bättre move är det 
+        public double BestMoveProb(int state, int action)
+        {
+            var Qdict = new Dictionary<int, int>();
+            Qdict.Add(state, action);
+            if(Qdict == null)
+            {
+                Qdict[(state, action).state] = 1;
+            }
+            return Qdict;
+        }
+
+
+
+
+
+
+        public override int SelectMove(Cell[,] grid)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     public class QLearn : AI
     {
 
@@ -114,3 +162,12 @@ namespace BlazorConnect4.AIModels
         }
     }
 }
+
+
+
+
+
+
+
+
+
