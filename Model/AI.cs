@@ -36,7 +36,7 @@ namespace BlazorConnect4.AIModels
     {
         public Dictionary<int, int> Qdict;
         int reward = 0;
-    public double Rewards(int state, int action)
+        public double Rewards(int state, int action)
         {
             return 0;
         }
@@ -136,7 +136,7 @@ namespace BlazorConnect4.AIModels
 			}
             return Q;
         }
-
+        //borde returnera alla tomma rutor (onödig kan använda GetValidMoveArray)
         static List<int> GetPossNextState(int s, Cell[,] FT)
         {
             List<int> Result = new List<int>();
@@ -146,22 +146,17 @@ namespace BlazorConnect4.AIModels
 			}
             return Result;
         }
+        //
         static List<int> GetRandSate(int s,Cell[,] FT)
         {
+            //väljer et slumpat sate
              List<int> possNextStates = GetPossNextState(s, FT);
              int ct = possNextStates.Count;
              int idx = rnd.Next(0, ct);
              return possNextStates[idx];
         }
 
-        private int[] getAction(int choice)
-        {
-            if(rnd.NextDouble() < epsilon)
-            {
-                
-            }
-            return null;
-        }
+        //q learning
         static void Train(Cell[,] FT, double[][] R, double[][] Q, int goial, double gamma, double learnRate, int MaxEpock)
         {
             for (int epoch = 0; epoch < MaxEpock; ++epoch)//går nog gör x antal gånger ba
